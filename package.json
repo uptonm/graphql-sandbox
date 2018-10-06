@@ -1,0 +1,11 @@
+{
+  "name": "graphql-sandbox",
+  "version": "1.0.0",
+  "description": "messing around trying to learn how to use the graphql-react stack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mike Upton",
+  "license": "ISC"
+}
