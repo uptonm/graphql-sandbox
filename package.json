@@ -4,8 +4,15 @@
   "description": "messing around trying to learn how to use the graphql-react stack",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon server"
   },
   "author": "Mike Upton",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "express-graphql": "^0.6.12",
+    "graphql": "^14.0.2",
+    "lodash": "^4.17.11",
+    "nodemon": "^1.18.4"
+  }
 }
