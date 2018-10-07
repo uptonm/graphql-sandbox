@@ -9,7 +9,15 @@ const users = [
   { id: "2", firstName: "Matt", lastName: "Smith", age: 27 },
   { id: "3", firstName: "George", lastName: "Matthews", age: 10 }
 ];
-
+// * Declaring the company type
+const CompanyType = new GraphQLObjectType({
+  name: "Company",
+  fields: {
+    id: { type: GraphQLString },
+    name: { type: GraphQLString },
+    description: { type: GraphQLString }
+  }
+});
 // * Declaring the user type
 const UserType = new GraphQLObjectType({
   name: "User",
@@ -17,7 +25,15 @@ const UserType = new GraphQLObjectType({
     id: { type: GraphQLString },
     firstName: { type: GraphQLString },
     lastName: { type: GraphQLString },
-    age: { type: GraphQLInt }
+    age: { type: GraphQLInt },
+    company: {
+      type: CompanyType,
+      resolve(parentValue, args) {
+        return axios
+          .get(`http://localhost:3000/companies/${parentValue.companyId}`)
+          .then(response => response.data);
+      }
+    }
   }
 });
 
