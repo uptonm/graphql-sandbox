@@ -1,27 +1,36 @@
 const graphql = require("graphql");
 const axios = require("axios");
-// * Uses Local Storage -- const _ = require("lodash");
-const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLSchema } = graphql;
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLInt,
+  GraphQLSchema,
+  GraphQLList
+} = graphql;
 
-// * Temporary data store
-const users = [
-  { id: "1", firstName: "Mike", lastName: "Upton", age: 20 },
-  { id: "2", firstName: "Matt", lastName: "Smith", age: 27 },
-  { id: "3", firstName: "George", lastName: "Matthews", age: 10 }
-];
 // * Declaring the company type
 const CompanyType = new GraphQLObjectType({
   name: "Company",
-  fields: {
+  fields: () => ({
+    // ? Needs to be function bc JS runs functions after entire file is executed, vars are initialized
     id: { type: GraphQLString },
     name: { type: GraphQLString },
-    description: { type: GraphQLString }
-  }
+    description: { type: GraphQLString },
+    employees: {
+      type: new GraphQLList(UserType),
+      resolve(parentValue, args) {
+        return axios
+          .get(`http://localhost:3000/companies/${parentValue.id}/users`)
+          .then(response => response.data);
+      }
+    }
+  })
 });
+
 // * Declaring the user type
 const UserType = new GraphQLObjectType({
   name: "User",
-  fields: {
+  fields: () => ({
     id: { type: GraphQLString },
     firstName: { type: GraphQLString },
     lastName: { type: GraphQLString },
@@ -34,7 +43,7 @@ const UserType = new GraphQLObjectType({
           .then(response => response.data);
       }
     }
-  }
+  })
 });
 
 // * Sets entry point for querying a user by id
@@ -45,10 +54,17 @@ const RootQuery = new GraphQLObjectType({
       type: UserType,
       args: { id: { type: GraphQLString } },
       resolve(parentValue, args) {
-        // ! Uses local storage
-        //return _.find(users, { id: args.id }); // ? Iterate through array and find the first user with the id of args.id
         return axios
           .get(`http://localhost:3000/users/${args.id}`)
+          .then(response => response.data); // ? Axios returns data wrapped in a { data: { firstName: "Mike", ... } } object
+      }
+    },
+    company: {
+      type: CompanyType,
+      args: { id: { type: GraphQLString } },
+      resolve(parentValue, args) {
+        return axios
+          .get(`http://localhost:3000/companies/${args.id}`)
           .then(response => response.data); // ? Axios returns data wrapped in a { data: { firstName: "Mike", ... } } object
       }
     }
