@@ -4,7 +4,8 @@
   "description": "messing around trying to learn how to use the graphql-react stack",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server"
+    "dev": "nodemon server",
+    "json:server": "json-server --watch db.json"
   },
   "author": "Mike Upton",
   "license": "ISC",
@@ -12,6 +13,7 @@
     "express": "^4.16.3",
     "express-graphql": "^0.6.12",
     "graphql": "^14.0.2",
+    "json-server": "^0.14.0",
     "lodash": "^4.17.11",
     "nodemon": "^1.18.4"
   }
