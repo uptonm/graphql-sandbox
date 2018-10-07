@@ -1,7 +1,42 @@
 {
   "users": [
-    { "id": "1", "firstName": "Mike", "lastName": "Upton", "age": 20 },
-    { "id": "2", "firstName": "Matt", "lastName": "Smith", "age": 27 },
-    { "id": "3", "firstName": "George", "lastName": "Matthews", "age": 10 }
+    {
+      "id": "1",
+      "firstName": "Mike",
+      "lastName": "Upton",
+      "age": 20,
+      "companyId": "1"
+    },
+    {
+      "id": "2",
+      "firstName": "Matt",
+      "lastName": "Smith",
+      "age": 27,
+      "companyId": "2"
+    },
+    {
+      "id": "3",
+      "firstName": "George",
+      "lastName": "Matthews",
+      "age": 10,
+      "companyId": "2"
+    }
+  ],
+  "companies": [
+    {
+      "id": "1",
+      "name": "Microsoft",
+      "description": "Software"
+    },
+    {
+      "id": "2",
+      "name": "Apple",
+      "description": "Software"
+    },
+    {
+      "id": "3",
+      "name": "Google",
+      "description": "Search"
+    }
   ]
 }
