@@ -33,7 +33,7 @@ const RootQuery = new GraphQLObjectType({
         //return _.find(users, { id: args.id }); // ? Iterate through array and find the first user with the id of args.id
         return axios
           .get(`http://localhost:3000/users/${args.id}`)
-          .then(response => response.data);
+          .then(response => response.data); // ? Axios returns data wrapped in a { data: { firstName: "Mike", ... } } object
       }
     }
   }
