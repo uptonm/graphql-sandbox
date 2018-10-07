@@ -1,5 +1,6 @@
 const graphql = require("graphql");
-const _ = require("lodash");
+const axios = require("axios");
+// * Uses Local Storage -- const _ = require("lodash");
 const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLSchema } = graphql;
 
 // * Temporary data store
@@ -28,7 +29,11 @@ const RootQuery = new GraphQLObjectType({
       type: UserType,
       args: { id: { type: GraphQLString } },
       resolve(parentValue, args) {
-        return _.find(users, { id: args.id }); // ? Iterate through array and find the first user with the id of args.id
+        // ! Uses local storage
+        //return _.find(users, { id: args.id }); // ? Iterate through array and find the first user with the id of args.id
+        return axios
+          .get(`http://localhost:3000/users/${args.id}`)
+          .then(response => response.data);
       }
     }
   }
