@@ -92,6 +92,32 @@ const mutation = new GraphQLObjectType({
           })
           .then(response => response.data);
       }
+    },
+    deleteUser: {
+      type: UserType,
+      args: {
+        id: { type: GraphQLString }
+      },
+      resolve(parentValue, args) {
+        return axios
+          .delete(`http://localhost:3000/users/${args.id}`)
+          .then(response => response.data);
+      }
+    },
+    editUser: {
+      type: UserType,
+      args: {
+        id: { type: GraphQLString },
+        firstName: { type: GraphQLString },
+        lastName: { type: GraphQLString },
+        age: { type: GraphQLInt },
+        companyId: { type: GraphQLString }
+      },
+      resolve(parentValue, args) {
+        return axios
+          .patch(`http://localhost:3000/users/${args.id}`, args)
+          .then(response => response.data);
+      }
     }
   }
 });
